@@ -6497,8 +6497,8 @@ select.form-input:active {
     max-width: none !important;
     width: 100%;
     /* Remove padding to be strictly full-screen */
-    display: flex;
-    /* Make sure it's a flex container */
+    display: none;
+    /* Hidden by default, made flex by .active */
 }
 
 .pomodoro-wrapper {
