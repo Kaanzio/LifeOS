@@ -222,9 +222,14 @@ const Pomodoro = {
         document.getElementById('pomodoroStart').style.display = 'none';
         document.getElementById('pomodoroPause').style.display = 'inline-flex';
 
+        this.manageSilentAudio(true);
+
         this.timerInterval = setInterval(() => {
             this.tick();
         }, 1000);
+
+        // Ensure immediate update
+        this.updateDisplay();
     },
 
     pause() {
@@ -237,6 +242,46 @@ const Pomodoro = {
         document.getElementById('pomodoroStart').style.display = 'inline-flex';
         document.getElementById('pomodoroStart').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Devam';
         document.getElementById('pomodoroPause').style.display = 'none';
+
+        this.manageSilentAudio(false);
+        this.updateDisplay();
+    },
+
+    manageSilentAudio(play) {
+        if (!this.silentAudio) {
+            // Tiny silent WAV base64
+            this.silentAudio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+            this.silentAudio.loop = true;
+
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('play', () => { this.start(); });
+                navigator.mediaSession.setActionHandler('pause', () => { this.pause(); });
+            }
+        }
+
+        if (play) {
+            try { this.silentAudio.play().catch(e => console.log('Silent audio blocked', e)); } catch (e) { }
+        } else {
+            try { this.silentAudio.pause(); } catch (e) { }
+        }
+    },
+
+    updateMediaSession(timeString, prefix, statusName) {
+        if ('mediaSession' in navigator) {
+            if (timeString && this.isRunning) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: `${prefix} ${timeString} - ${statusName}`,
+                    artist: 'LifeOS Pomodoro',
+                    album: 'LifeOS',
+                    artwork: [
+                        { src: 'assets/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+                        { src: 'assets/icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+            } else {
+                navigator.mediaSession.metadata = null;
+            }
+        }
     },
     setMode(mode) {
         if (this.isRunning) {
@@ -256,6 +301,7 @@ const Pomodoro = {
         this.currentMode = mode;
         this.isRunning = false;
         this.isPaused = false;
+        this.manageSilentAudio(false);
         clearInterval(this.timerInterval);
 
         if (mode === 'work') this.timeRemaining = this.settings.workTime * 60;
@@ -316,6 +362,7 @@ const Pomodoro = {
         document.getElementById('pomodoroStart').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Başlat';
         document.getElementById('pomodoroPause').style.display = 'none';
 
+        this.manageSilentAudio(false);
         this.updateDisplay();
     },
 
@@ -343,6 +390,7 @@ const Pomodoro = {
     complete() {
         clearInterval(this.timerInterval);
         this.isRunning = false;
+        this.manageSilentAudio(false);
 
         // Play notification sound (browser beep)
         try {
@@ -476,8 +524,10 @@ const Pomodoro = {
             const seconds = this.timeRemaining % 60;
             const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             document.title = `${prefix} ${timeString} - ${statusNames[this.currentMode]}`;
+            this.updateMediaSession(timeString, prefix, statusNames[this.currentMode]);
         } else {
             document.title = 'LifeOS - Hayatını Yönet';
+            this.updateMediaSession('', '', '');
         }
 
         // Update skip button visibility
