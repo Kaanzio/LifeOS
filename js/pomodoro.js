@@ -276,42 +276,20 @@ const Pomodoro = {
     updateMediaSession(timeString, prefix, statusName) {
         if ('mediaSession' in navigator) {
             if (timeString && this.isRunning) {
-                const titleStr = `${prefix} ${timeString} - ${statusName}`;
                 const baseUrl = window.location.href.split('index.html')[0].replace(/\/$/, '') + '/';
 
-                // Update Metadata every tick so the user sees the countdown in the title
+                // Minimal title prevents scrolling (marquee) issues on Android
                 navigator.mediaSession.metadata = new MediaMetadata({
-                    title: titleStr,
-                    artist: 'LifeOS Zamanlayıcı',
-                    album: 'LifeOS',
+                    title: `${prefix} ${timeString}`,
+                    artist: '',
+                    album: '',
                     artwork: [
                         { src: baseUrl + 'assets/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
                         { src: baseUrl + 'assets/icons/icon-512.png', sizes: '512x512', type: 'image/png' }
                     ]
                 });
-
-                // Update Progress Bar / Timer on Mobile OS
-                if ('setPositionState' in navigator.mediaSession) {
-                    let totalSeconds = 0;
-                    if (this.currentMode === 'work') totalSeconds = this.settings.workTime * 60;
-                    else if (this.currentMode === 'shortBreak') totalSeconds = this.settings.shortBreak * 60;
-                    else if (this.currentMode === 'longBreak') totalSeconds = this.settings.longBreak * 60;
-
-                    const elapsed = Math.max(0, totalSeconds - this.timeRemaining);
-
-                    try {
-                        navigator.mediaSession.setPositionState({
-                            duration: totalSeconds,
-                            playbackRate: this.isRunning ? 1 : 0,
-                            position: elapsed
-                        });
-                    } catch (e) { }
-                }
             } else {
                 navigator.mediaSession.metadata = null;
-                if ('setPositionState' in navigator.mediaSession) {
-                    try { navigator.mediaSession.setPositionState(null); } catch (e) { }
-                }
             }
         }
     },
