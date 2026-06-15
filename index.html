@@ -1576,6 +1576,75 @@
                         <!-- Schedule grid buraya JS ile yüklenecek -->
                     </div>
                 </section>
+                <!-- P2P Sync Page -->
+                <section class="page" id="page-sync">
+                    <header class="page-header" style="margin-bottom: 24px;">
+                        <div>
+                            <h2 style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, var(--accent-primary) 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Senkronizasyon</h2>
+                            <p style="color: var(--text-muted); margin-top: 4px;">Cihazlarınızı tamamen ücretsiz ve güvenli şekilde eşitleyin.</p>
+                        </div>
+                    </header>
+                    <div class="page-content-wrapper glass-panel" style="max-width: 500px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+                        <div id="syncInitialView">
+                            <div style="margin-bottom: 40px;">
+                                <div style="width: 80px; height: 80px; background: rgba(var(--accent-rgb), 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                </div>
+                                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.5;">Aynı Wi-Fi ağına bağlı olmanıza gerek yok. 6 haneli kod üreterek cihazlarınızı anında eşleştirebilirsiniz.</p>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <button class="btn btn-primary" onclick="P2PSync.showHostView()" style="width: 100%; height: 54px; font-size: 16px; font-weight: 600;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M12 20V10"/><path d="m18 20-6-10-6 10"/></svg>
+                                    Kod Üret
+                                </button>
+                                <button class="btn btn-secondary" onclick="P2PSync.showClientView()" style="width: 100%; height: 54px; font-size: 16px; font-weight: 600;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    Kodu Gir
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Host View (Showing PIN) -->
+                        <div id="syncHostView" style="display: none;">
+                            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Bağlantı Kodunuz</h3>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Diğer cihazda "Kodu Gir" seçeneğini seçip aşağıdaki kodu tuşlayın.</p>
+                            
+                            <div class="pin-display" id="hostPinDisplay" style="font-size: 48px; font-weight: 800; letter-spacing: 8px; color: var(--accent-primary); margin-bottom: 40px; background: rgba(var(--accent-rgb), 0.05); padding: 20px; border-radius: 16px; font-family: monospace;">
+                                ------
+                            </div>
+                            
+                            <div class="sync-status" id="hostSyncStatus" style="margin-bottom: 30px; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                Bekleniyor...
+                            </div>
+
+                            <button class="btn btn-secondary" onclick="P2PSync.cancel()" style="width: 100%;">İptal</button>
+                        </div>
+
+                        <!-- Client View (Entering PIN) -->
+                        <div id="syncClientView" style="display: none;">
+                            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Kodu Girin</h3>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Eşleşmek istediğiniz cihazın ekranındaki 6 haneli kodu girin.</p>
+                            
+                            <div class="pin-input-container" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 40px;" id="clientPinInputs">
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                                <input type="text" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+                            </div>
+
+                            <div class="sync-status" id="clientSyncStatus" style="margin-bottom: 30px; font-size: 14px; color: var(--text-muted); display: none; align-items: center; justify-content: center; gap: 8px;">
+                                <div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                <span id="clientStatusText">Bağlanılıyor...</span>
+                            </div>
+                            
+                            <button class="btn btn-secondary" onclick="P2PSync.cancel()" style="width: 100%;">İptal</button>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Profile Page (Single Page Settings Layout) -->
                 <section class="page" id="page-profile">
@@ -1747,9 +1816,9 @@
                                         Cihaz Senkronizasyonu (P2P)
                                     </h3>
                                     <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Telefon veya başka bir cihazla verilerinizi tamamen ücretsiz ve anında eşitleyin. Eşleşen cihaza veri gönderip alabilirsiniz.</p>
-                                    <button class="btn btn-primary" onclick="QRSync.openPairingModal()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; padding: 12px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                        Karekod (QR) ile Cihaz Eşle
+                                    <button class="btn btn-primary" onclick="App.switchPage('sync')" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; padding: 12px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                        Cihazları Eşleştir
                                     </button>
                                 </div>
                                 <div class="content-section glass-panel danger-zone">
@@ -2189,8 +2258,7 @@
     <script src="js/notes.js?v=6.93"></script>
     <script src="js/drive-sync.js?v=6.93"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-    <script src="js/qr-sync.js?v=1.04"></script>
+    <script src="js/p2p-sync.js?v=1.00"></script>
     <script src="js/profile.js?v=6.93"></script>
     <script src="js/dashboard.js?v=6.93"></script>
 
