@@ -151,20 +151,22 @@ const QRSync = {
         if (this.modalNode) return;
 
         this.modalNode = document.createElement('div');
-        this.modalNode.className = 'modal glass-modal active';
+        this.modalNode.className = 'modal-overlay open';
         this.modalNode.id = 'qrSyncModal';
         this.modalNode.style.display = 'flex';
+        this.modalNode.style.alignItems = 'center';
+        this.modalNode.style.justifyContent = 'center';
         this.modalNode.style.zIndex = '9999';
 
         this.modalNode.innerHTML = `
-            <div class="modal-content glass-panel" style="max-width: 400px; text-align: center; padding: 30px 20px;">
+            <div class="modal glass-panel" style="max-width: 400px; text-align: center; padding: 30px 20px; position: relative;">
                 <div class="modal-header" style="justify-content: center; border-bottom: none; padding-bottom: 0;">
                     <h2 class="modal-title">Cihaz Senkronizasyonu</h2>
-                    <button class="modal-close" style="position: absolute; right: 20px;" onclick="QRSync.disconnect()">
+                    <button class="modal-close" style="position: absolute; right: 20px; top: 20px;" onclick="QRSync.disconnect()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
-                <div class="modal-body" id="qrSyncModalBody" style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 20px;">
+                <div class="modal-body" id="qrSyncModalBody" style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 20px; overflow-y: visible;">
                     <!-- Dynamic Content -->
                 </div>
             </div>
