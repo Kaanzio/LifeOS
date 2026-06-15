@@ -125,7 +125,7 @@ const P2PSync = {
         pinDisplay.textContent = this.pin;
         
         const status = document.getElementById('hostSyncStatus');
-        status.innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div> Sunucuya bağlanılıyor...';
+        status.innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Sunucuya bağlanılıyor...';
         
         try {
             this.peer = new Peer(this.pin, {
@@ -137,7 +137,7 @@ const P2PSync = {
             });
             
             this.peer.on('open', (id) => {
-                status.innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div> Cihaz bekleniyor...';
+                status.innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Cihaz bekleniyor...';
             });
             
             this.peer.on('connection', (conn) => {
@@ -159,7 +159,7 @@ const P2PSync = {
             const accept = confirm("Bir cihaz verilerinizi senkronize etmek için bağlanmak istiyor. İki cihazdaki veriler birleştirilecektir. Kabul ediyor musunuz?");
             
             if (accept) {
-                document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler gönderiliyor...';
+                document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler gönderiliyor...';
                 
                 // Send ACCEPT and full local state
                 this.exportAndSend();
@@ -172,7 +172,7 @@ const P2PSync = {
         this.conn.on('data', async (data) => {
             if (data.type === 'MERGED_STATE') {
                 // Client has done the merging and sent back the final state
-                document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(var(--accent-rgb), 0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler kaydediliyor...';
+                document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler kaydediliyor...';
                 
                 const success = await Storage.importData(JSON.stringify(data.payload));
                 if (success) {

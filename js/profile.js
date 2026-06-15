@@ -538,7 +538,7 @@ const Profile = {
 
         container.innerHTML = `
             <!-- Avatar Color Box -->
-            <div class="bento-item" style="padding: 16px 20px; min-height: 110px; height: auto;">
+            <div class="bento-item" style="padding: 16px 20px; min-height: 110px; height: auto; display: none;">
                 <div class="bento-header" style="margin-bottom: 12px; display:flex; align-items:center; gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> Avatar Rengi</div>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <div style="display: flex; gap: 6px;">
@@ -572,7 +572,7 @@ const Profile = {
             </div>
 
             <!-- Avatar Metni Box -->
-            <div class="bento-item" style="padding: 16px 20px; min-height: 110px; height: auto;">
+            <div class="bento-item" style="padding: 16px 20px; min-height: 110px; height: auto; display: none;">
                 <div class="bento-header" style="margin-bottom: 12px; display:flex; align-items:center; gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg> Avatar Metni</div>
                 <div style="background: var(--bg-tertiary); padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; width: fit-content;">
                     <input type="text" class="form-input" maxlength="2" placeholder="KN"
@@ -584,7 +584,7 @@ const Profile = {
             </div>
 
             <!-- Avatar Text Settings Box -->
-            <div class="bento-item medium-width">
+            <div class="bento-item medium-width" style="display: none;">
                 <div class="bento-header" style="display:flex; align-items:center; gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0l12.6 12.6z"/><line x1="5" x2="12" y1="6" y2="13"/><line x1="15" x2="14" y1="16" y2="15"/><line x1="10" x2="9" y1="11" y2="10"/><line x1="13" x2="12" y1="14" y2="13"/><line x1="16" x2="15" y1="17" y2="16"/></svg> Konum ve Boyut</div>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <div style="display:flex; align-items:center; gap:12px;">
@@ -608,7 +608,7 @@ const Profile = {
                 </div>
             </div>
 
-            <div class="bento-item medium-width">
+            <div class="bento-item medium-width" style="display: none;">
                 <div class="bento-header" style="display:flex; align-items:center; gap:6px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Arkaplan Stilleri
                 </div>
@@ -641,7 +641,7 @@ const Profile = {
             </div>
 
             <!-- Advanced Creator (Collapsible) -->
-            <div id="gradientCreator" class="bento-item full-width ${this.showGradientCreator ? '' : 'hidden'}" style="margin-top: 0;">
+            <div id="gradientCreator" class="bento-item full-width ${this.showGradientCreator ? '' : 'hidden'}" style="margin-top: 0; display: none;">
                 <div class="bento-header"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> Özel Gradyan Sihirbazı</div>
                 <div style="display: flex; flex-direction: column; gap: 20px; max-width: 440px;">
                     <div style="display: flex; gap: 16px;">
