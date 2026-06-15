@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Life OS - Dashboard Module v2.3
  * Ana panel istatistikleri ve özet görünümü - Canlı geri sayım güncellemesi
  */
@@ -852,7 +852,7 @@ const Dashboard = {
                     </div>
                     <div class="stat-info" style="width: 100%; min-width: 0;">
                         <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Dizi</div>
-                        <span class="stat-number ellipsis-text" style="font-size: 1.1rem; line-height: 1.2; margin-bottom: 2px; color: var(--text-muted);">İÄİzlenmiyor</span>
+                        <span class="stat-number ellipsis-text" style="font-size: 1.1rem; line-height: 1.2; margin-bottom: 2px; color: var(--text-muted);">İzlenmiyor</span>
                     </div>
                 </div>
             `;
@@ -885,7 +885,7 @@ const Dashboard = {
                     </div>
                     <div class="stat-info" style="width: 100%; min-width: 0;">
                         <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Film</div>
-                        <span class="stat-number ellipsis-text" style="font-size: 1.1rem; line-height: 1.2; margin-bottom: 2px; color: var(--text-muted);">İÄİzlenmiyor</span>
+                        <span class="stat-number ellipsis-text" style="font-size: 1.1rem; line-height: 1.2; margin-bottom: 2px; color: var(--text-muted);">İzlenmiyor</span>
                     </div>
                 </div>
             `;
@@ -906,7 +906,7 @@ const Dashboard = {
                     <div class="stat-info" style="width: 100%; min-width: 0;">
                         <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Oyun</div>
                         <span class="stat-number ellipsis-text" style="font-size: 1.1rem; line-height: 1.2; margin-bottom: 4px;">${activeGame.title}</span>
-                        <div style="font-size: 11px; color: #22c55e; font-weight: 700;">${activeGame.hoursPlayed || 0} Saat Oynandı±ı</div>
+                        <div style="font-size: 11px; color: #22c55e; font-weight: 700;">${activeGame.hoursPlayed || 0} Saat Oynandı</div>
                     </div>
                 </div>
             `;
@@ -1047,7 +1047,7 @@ const Dashboard = {
                     <div style="flex: 1; min-width: 0;">
                         <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Oyun</div>
                         <div style="font-size: 1.1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px;">${activeGame.title}</div>
-                        <div style="font-size: 12px; color: #22c55e; font-weight: 800;">${activeGame.hoursPlayed || 0} Saat Oynandı±ı</div>
+                        <div style="font-size: 12px; color: #22c55e; font-weight: 800;">${activeGame.hoursPlayed || 0} Saat Oynandı</div>
                     </div>
                     <button onclick="Dashboard.incrementOngoing('game', '${activeGame.id}')" style="width: 40px; height: 40px; border-radius: 20px; border: none; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);" title="+1 Saat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
