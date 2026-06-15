@@ -198,14 +198,17 @@ const QRSync = {
         body.innerHTML = `
             <p style="color: var(--text-muted); font-size: 14px; margin-top: -10px;">Bu karekodu, aktarım yapmak istediğiniz cihazın (örneğin telefonunuzun) normal kamerasıyla okutun.</p>
             <div id="qrCodeContainer" style="background: white; padding: 15px; border-radius: 16px; display: inline-block;">
-                <canvas id="qrCodeCanvas"></canvas>
+                <canvas id="qrCodeCanvas" style="display: none;"></canvas>
+                <img id="qrCodeFallback" src="" alt="QR Code" style="display: none; width: 200px; height: 200px;" />
             </div>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">Tarayıcı açıldığında iki cihaz otomatik eşleşecektir.</p>
         `;
 
-        // Render QR Code
         const canvas = document.getElementById('qrCodeCanvas');
+        const fallbackImg = document.getElementById('qrCodeFallback');
+
         if (window.QRCode && canvas) {
+            canvas.style.display = 'block';
             QRCode.toCanvas(canvas, syncUrl, {
                 width: 200,
                 margin: 1,
@@ -214,8 +217,18 @@ const QRSync = {
                     light: '#ffffff'
                 }
             }, function (error) {
-                if (error) console.error(error);
+                if (error) {
+                    console.error("QR Code generation error:", error);
+                    // Switch to fallback on error
+                    canvas.style.display = 'none';
+                    fallbackImg.style.display = 'block';
+                    fallbackImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(syncUrl)}`;
+                }
             });
+        } else if (fallbackImg) {
+            // Library failed to load, use API directly
+            fallbackImg.style.display = 'block';
+            fallbackImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(syncUrl)}`;
         }
     },
 
