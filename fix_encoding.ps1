@@ -1,0 +1,1 @@
+(Get-Content -Path 'c:\Users\kaane\.gemini\antigravity\scratch\lifeos_mobile\js\dashboard.js' -Raw -Encoding UTF8) -replace 'Oynand', 'Oynandı' -replace 'Blm', 'Bölüm' -replace 'zlenmiyor', 'İzlenmiyor' -replace 'zlendi', 'İzlendi' | Set-Content -Path 'c:\Users\kaane\.gemini\antigravity\scratch\lifeos_mobile\js\dashboard.js' -Encoding UTF8

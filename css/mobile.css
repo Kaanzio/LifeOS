@@ -1,0 +1,2414 @@
+/* ==========================================
+   LifeOS MOBILE — Native App Experience v5.0
+   Complete mobile overrides — every page covered
+   ========================================== */
+
+/* ─── BASE (hidden on desktop) ─── */
+.mobile-nav,
+.mobile-filter-fab,
+.mobile-filter-backdrop,
+.mobile-filter-panel {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN MOBILE BREAKPOINT
+   ═══════════════════════════════════════════ */
+@media (max-width: 991px) {
+
+    /* 1. GLOBAL RESET & PERFORMANCE (Android-based normalization) */
+    html,
+    body {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: auto;
+        /* Disable iOS elastic bounce to match Android feel */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+        user-select: none;
+        /* Prevent text selection across app to feel native */
+    }
+
+    /* Allow selection in inputs/selectable areas */
+    input,
+    textarea,
+    [contenteditable="true"],
+    .printable {
+        user-select: text !important;
+    }
+
+    /* Kill ALL animations — instant native feel */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0.15s !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* iOS Normalization — Make it look like Android */
+    input,
+    select,
+    textarea,
+    button {
+        -webkit-appearance: none !important;
+        /* Kill iOS default styling */
+        appearance: none !important;
+        border-radius: 12px;
+        /* Re-apply consistent radius */
+        outline: none !important;
+    }
+
+    select {
+        background-color: transparent;
+    }
+
+    /* iOS Button shadow reset */
+    button {
+        background-image: none !important;
+        box-shadow: none;
+    }
+
+    /* ───────────────────────────────────────────
+   2. OS STATUS BAR — HIDDEN
+   ─────────────────────────────────────────── */
+    .os-status-bar,
+    .os-status-restore-handle {
+        display: none !important;
+    }
+
+    /* ───────────────────────────────────────────
+   3. LOADING SCREEN
+   ─────────────────────────────────────────── */
+    #loading-overlay {
+        padding: 20px !important;
+    }
+
+    #loading-overlay div {
+        transform: none !important;
+    }
+
+    #loading-overlay img {
+        height: 70px !important;
+        margin-right: -8px !important;
+        transform: none !important;
+    }
+
+    #loading-overlay span {
+        font-size: 32px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   4. APP SHELL
+   ─────────────────────────────────────────── */
+    #app {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: 100vh !important;
+        opacity: 1 !important;
+        overflow: hidden !important;
+    }
+
+    /* ───────────────────────────────────────────
+   5. HEADER — Fixed top bar
+   ─────────────────────────────────────────── */
+    .header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 56px !important;
+        min-height: 56px !important;
+        padding: 0 12px !important;
+        background: var(--bg-secondary) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        z-index: 1500 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Hide desktop-only header items */
+    .header-left .header-clock,
+    .header-left .header-divider,
+    .header-left .logo,
+    .header-right .search-bar,
+    .header-right .header-profile-name,
+    .header-right .header-profile-title,
+    .header-profile-chevron {
+        display: none !important;
+    }
+
+    .header-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        min-width: 0 !important;
+    }
+
+    .header-left .page-title {
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 180px !important;
+    }
+
+    .header-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .header-btn {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 10px !important;
+    }
+
+    .header-profile {
+        padding: 4px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   6. NOTIFICATIONS — Full width dropdown
+   ─────────────────────────────────────────── */
+    .notification-dropdown {
+        position: fixed !important;
+        top: 56px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 0 16px 16px !important;
+        max-height: 70vh !important;
+        z-index: 10020 !important;
+    }
+
+    .notification-dropdown.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .dropdown-content {
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Profile dropdown */
+    .profile-dropdown {
+        position: fixed !important;
+        top: 56px !important;
+        right: 8px !important;
+        left: auto !important;
+        width: 220px !important;
+        border-radius: 0 0 16px 16px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   7. SIDEBAR — Off-canvas drawer
+   ─────────────────────────────────────────── */
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 280px !important;
+        height: 100vh !important;
+        transform: translateX(-100%) !important;
+        z-index: 3000 !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: none !important;
+    }
+
+    .sidebar.open {
+        transform: translateX(0) !important;
+        box-shadow: 8px 0 30px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 2999;
+    }
+
+    .sidebar-overlay.active {
+        display: block !important;
+    }
+
+    /* ───────────────────────────────────────────
+   8. MAIN CONTENT — Scrollable area
+   ─────────────────────────────────────────── */
+    .main-content {
+        margin-left: 0 !important;
+        margin-top: 56px !important;
+        padding-bottom: 80px !important;
+        width: 100% !important;
+        height: calc(100vh - 56px) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pages-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .page {
+        padding: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ───────────────────────────────────────────
+   9. BOTTOM NAVIGATION — Tab bar
+   ─────────────────────────────────────────── */
+    .mobile-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 56px !important;
+        background: var(--bg-secondary) !important;
+        border-top: 1px solid var(--border-color) !important;
+        z-index: 2000 !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        padding: 0 !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        box-sizing: content-box !important;
+    }
+
+    .mobile-nav-item {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: var(--text-muted) !important;
+        gap: 3px !important;
+        text-decoration: none !important;
+        height: 100% !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .mobile-nav-item svg {
+        width: 20px !important;
+        height: 20px !important;
+        stroke-width: 1.8 !important;
+    }
+
+    .mobile-nav-item span {
+        font-size: 10px !important;
+        font-weight: 500 !important;
+    }
+
+    .mobile-nav-item.active {
+        color: var(--accent-purple) !important;
+    }
+
+    .mobile-nav-item.active span {
+        font-weight: 700 !important;
+    }
+
+    /* ───────────────────────────────────────────
+   10. DASHBOARD
+   ─────────────────────────────────────────── */
+    #page-dashboard {
+        padding: 0 !important;
+    }
+
+    .dashboard-main-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 14px !important;
+        width: 100% !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    .dashboard-panel {
+        width: 100% !important;
+        min-height: auto !important;
+        max-height: none !important;
+        border-radius: 14px !important;
+    }
+
+    .dashboard-panel:hover {
+        transform: none !important;
+    }
+
+    .panel-content {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .panel-header {
+        height: 44px !important;
+        padding: 0 12px !important;
+    }
+
+    .panel-header h3 {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+    }
+
+    /* Banner */
+    .dashboard-banner-container {
+        margin: 0 !important;
+        border-radius: 14px !important;
+        overflow: hidden !important;
+    }
+
+    .dashboard-banner {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 0 !important;
+        border-radius: 14px !important;
+    }
+
+    .dashboard-profile-info {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 20px 16px !important;
+        border-radius: 0 !important;
+    }
+
+    .banner-welcome-text {
+        width: 100% !important;
+        flex-direction: column !important;
+        padding: 16px !important;
+        gap: 12px !important;
+    }
+
+    #welcomeText {
+        font-size: 20px !important;
+    }
+
+    #welcomeSubtext {
+        font-size: 13px !important;
+    }
+
+    /* Stats */
+    .banner-stats-row,
+    .banner-stats-grid-modern {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        gap: 8px !important;
+    }
+
+    .stat-card-modern,
+    .banner-stat-item {
+        min-width: 0 !important;
+        padding: 10px !important;
+        border-radius: 10px !important;
+    }
+
+    .stat-card-modern .stat-number {
+        font-size: 18px !important;
+    }
+
+    /* Quick Sites */
+    .quick-sites-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+        padding: 12px !important;
+    }
+
+    .quick-site-btn {
+        min-width: 0 !important;
+        border: none !important;
+        /* User request: remove borders */
+        background: transparent !important;
+        padding: 4px !important;
+    }
+
+    .quick-site-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .quick-site-name {
+        font-size: 10px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+        display: block !important;
+    }
+
+    /* Quick Actions */
+    .quick-actions-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        padding: 12px !important;
+    }
+
+    .quick-action-btn {
+        padding: 10px !important;
+        font-size: 12px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   11. INLINE STYLE OVERRIDES (stats rows with inline grid)
+   ─────────────────────────────────────────── */
+    /* All pages (games, books, shows, sites, youtube, lessons, exams)
+   have stats-row with inline style: grid-template-columns: repeat(3, 1fr) */
+    .stats-row[style] {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .stats-card-modern {
+        padding: 14px !important;
+    }
+
+    .stats-card-value {
+        font-size: 20px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   12. GAMES PAGE — Cards fit screen
+   ─────────────────────────────────────────── */
+    #gamesGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .game-card-simple-v2 {
+        height: auto !important;
+        min-height: 100px !important;
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    .game-card-simple-v2:hover {
+        transform: none !important;
+    }
+
+    .game-title-v2 {
+        font-size: 14px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        line-height: 1.3 !important;
+    }
+
+    .store-badge-simple {
+        padding: 4px 8px !important;
+        font-size: 8px !important;
+    }
+
+    .genre-tag-v2 {
+        font-size: 9px !important;
+        padding: 3px 6px !important;
+    }
+
+    .status-label-v2 {
+        font-size: 11px !important;
+    }
+
+    .card-footer-simple {
+        margin-top: 8px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   13. MODULE GRIDS — All content pages
+   ─────────────────────────────────────────── */
+    .module-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .module-card {
+        padding: 16px !important;
+        border-radius: 14px !important;
+    }
+
+    .module-card:hover {
+        transform: none !important;
+    }
+
+    .books-grid,
+    .shows-grid,
+    .games-grid,
+    .lessons-grid,
+    .exams-grid,
+    .sites-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Card actions always visible */
+    .card-actions,
+    .module-card-actions {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Empty state */
+    .empty-state-large {
+        padding: 40px 20px !important;
+    }
+
+    .empty-state-large .empty-icon svg {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   14. TASKS / PLANNING
+   ─────────────────────────────────────────── */
+    .planning-header,
+    .page-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+    .page-actions {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .page-actions button,
+    .page-actions .btn {
+        flex: 1 !important;
+        min-width: 0 !important;
+        font-size: 12px !important;
+        padding: 10px 8px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Kanban */
+    .kanban-board {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 14px !important;
+        min-height: auto !important;
+    }
+
+    .kanban-column {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    /* Task items */
+    .task-list-item {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    .task-list-item:hover {
+        transform: none !important;
+    }
+
+    .task-list-content {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .task-list-content div[style*="max-width"] {
+        max-width: 100% !important;
+    }
+
+    .task-list-actions {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        gap: 4px !important;
+    }
+
+    .task-list-actions .btn-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    /* Filters — horizontal scroll */
+    .planning-filters,
+    .filter-drop-inline {
+        width: 100% !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none !important;
+    }
+
+    .planning-filters::-webkit-scrollbar,
+    .filter-drop-inline::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* Custom dropdowns — prevent overflow on small screens */
+    .custom-dropdown {
+        width: auto !important;
+        min-width: 120px !important;
+        max-width: 160px !important;
+    }
+
+    .custom-dropdown-trigger {
+        padding: 0 10px !important;
+        font-size: 12px !important;
+    }
+
+    .custom-dropdown-trigger span {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* All Tasks toolbar row — wrap and compact */
+    .all-tasks-toolbar,
+    div[style*="display: flex"][style*="justify-content: space-between"]>div[style*="gap: 15px"] {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    /* Task list items — better mobile layout */
+    .task-list-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .task-list-priority-svg {
+        align-self: flex-start !important;
+    }
+
+    .task-list-status {
+        align-self: flex-start !important;
+    }
+
+    .task-list-actions {
+        width: 100% !important;
+        justify-content: flex-end !important;
+    }
+
+    /* Calendar — square days, no content, dot indicator */
+    #monthlyCalendar {
+        grid-template-columns: repeat(7, 1fr) !important;
+    }
+
+    .calendar-day {
+        min-height: 0 !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        padding: 4px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 10px !important;
+    }
+
+    .calendar-day-number {
+        font-size: 13px !important;
+        margin-bottom: 0 !important;
+        align-self: center !important;
+    }
+
+    .calendar-tasks {
+        display: none !important;
+    }
+
+    /* Dot indicator for days that have tasks */
+    .calendar-day.has-tasks::after {
+        content: '' !important;
+        display: block !important;
+        width: 5px !important;
+        height: 5px !important;
+        border-radius: 50% !important;
+        background: var(--accent-purple) !important;
+        margin-top: 2px !important;
+        box-shadow: 0 0 4px rgba(var(--accent-rgb), 0.5) !important;
+    }
+
+    .calendar-header {
+        font-size: 11px !important;
+        padding: 6px 0 !important;
+    }
+
+    /* ───────────────────────────────────────────
+   15. NOTES PAGE
+   ─────────────────────────────────────────── */
+    .notes-layout {
+        flex-direction: column !important;
+        height: auto !important;
+        gap: 12px !important;
+    }
+
+    .notes-sidebar {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-height: 300px !important;
+        border-radius: 12px !important;
+        overflow-y: auto !important;
+    }
+
+    /* Notes toolbar — search and category side by side */
+    .notes-toolbar {
+        padding: 12px !important;
+    }
+
+    .notes-toolbar div[style*="display: flex"][style*="flex-direction: column"] {
+        flex-direction: row !important;
+        gap: 8px !important;
+    }
+
+    .notes-toolbar div[style*="display: flex"]>div[style*="position: relative"] {
+        flex: 1 !important;
+    }
+
+    .notes-toolbar .form-input {
+        height: 40px !important;
+        font-size: 14px !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+    }
+
+    .notes-toolbar .form-select {
+        height: 40px !important;
+        font-size: 13px !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        min-width: 110px !important;
+        padding: 0 8px !important;
+    }
+
+    .notes-list {
+        max-height: none !important;
+        overflow-y: auto !important;
+        padding: 6px !important;
+    }
+
+    .notes-content {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 400px !important;
+        margin-top: 10px !important;
+    }
+
+    /* Note list items — card style on mobile */
+    .note-item {
+        padding: 12px 14px !important;
+        margin-bottom: 6px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 12px !important;
+        border-bottom: none !important;
+        border: 1px solid transparent !important;
+    }
+
+    .note-item.active {
+        background: rgba(var(--accent-rgb), 0.08) !important;
+        border: 1px solid rgba(var(--accent-rgb), 0.2) !important;
+    }
+
+    .note-item-title {
+        font-size: 14px !important;
+    }
+
+    /* Close button for opened note on mobile */
+    .note-close-btn-mobile {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .note-close-btn-mobile:active {
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Note header actions — prevent cut-off */
+    .note-view-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 6px 10px !important;
+        gap: 4px !important;
+        height: auto !important;
+        overflow: hidden !important;
+    }
+
+    .note-header-main {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .note-title-input {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        padding: 0 !important;
+        height: 24px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .note-badge-group {
+        margin-top: 2px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+    }
+
+    .category-badge select {
+        padding: 1px 4px !important;
+        font-size: 10px !important;
+    }
+
+    .note-date-badge {
+        font-size: 10px !important;
+        white-space: nowrap !important;
+    }
+
+    .note-header-actions {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+        padding-top: 6px !important;
+        gap: 8px !important;
+    }
+
+    .note-color-swatches-compact {
+        width: auto !important;
+        justify-content: flex-start !important;
+        margin-bottom: 0 !important;
+        scale: 0.85 !important;
+        transform-origin: left center !important;
+    }
+
+    .action-divider {
+        display: none !important;
+    }
+
+    .note-action-buttons {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .note-btn-pill {
+        flex: 1 !important;
+        height: 38px !important;
+        justify-content: center !important;
+    }
+
+    .note-btn-group {
+        display: flex !important;
+        gap: 6px !important;
+    }
+
+    .note-btn-icon {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+    }
+
+    /* Color swatches compact */
+    .note-color-swatches-compact {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+
+    .note-editor-toolbar {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+        padding: 8px !important;
+    }
+
+    /* Tab bars — horizontal scroll */
+    .tab-bar,
+    .categories-bar,
+    .filter-chips {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none !important;
+    }
+
+    .tab-bar::-webkit-scrollbar,
+    .categories-bar::-webkit-scrollbar,
+    .filter-chips::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* ───────────────────────────────────────────
+   16. HABITS / CHAIN — Redesigned for mobile
+   ─────────────────────────────────────────── */
+    .habit-dashboard-item {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        padding: 14px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .habit-dashboard-item>.habit-icon-mini {
+        display: none !important;
+    }
+
+    .habit-details {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+
+    .habit-name {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+    }
+
+    .habit-stats {
+        font-size: 11px !important;
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+    }
+
+    .stat-separator {
+        display: none !important;
+    }
+
+    .active-streak {
+        font-weight: 700 !important;
+        font-size: 12px !important;
+    }
+
+    .dashboard-habit-mini-grid {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 4px !important;
+        width: 100% !important;
+    }
+
+    .habit-day-box {
+        width: auto !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        min-width: 0 !important;
+        font-size: 11px !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Upcoming events — max 2 visible, compact */
+    .upcoming-item-box {
+        min-height: 50px !important;
+        padding: 10px 12px !important;
+    }
+
+    .upcoming-item-box .upcoming-title,
+    .upcoming-item-box span.upcoming-title {
+        font-size: 12px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 55% !important;
+        display: inline-block !important;
+    }
+
+    .upcoming-countdown-value {
+        font-size: 12px !important;
+    }
+
+    .habit-guide-modern {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ───────────────────────────────────────────
+   17. WEEKLY PLANNER
+   ─────────────────────────────────────────── */
+    #weeklyPlannerGrid {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .schedule-header-actions {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   18. PROFILE / SETTINGS — Complete mobile redesign
+   ─────────────────────────────────────────── */
+    .settings-page-container {
+        max-width: 100% !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding-bottom: 80px !important;
+        /* Space for floating save above nav */
+    }
+
+    .settings-body {
+        padding: 20px 12px !important;
+        padding-bottom: 100px !important;
+        /* Extra space for floating save */
+        overflow-y: visible !important;
+    }
+
+    /* Settings floating save — position above bottom nav */
+    .settings-floating-save {
+        bottom: 72px !important;
+        /* 56px nav + 16px gap */
+        right: 16px !important;
+        left: 16px !important;
+        padding: 14px !important;
+        border-radius: 14px !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+
+    .settings-main-header {
+        margin-bottom: 30px !important;
+        text-align: left !important;
+    }
+
+    .settings-main-header h1 {
+        font-size: 22px !important;
+    }
+
+    .settings-main-header p {
+        font-size: 14px !important;
+    }
+
+    .settings-section {
+        margin-bottom: 30px !important;
+    }
+
+    .section-divider {
+        margin-bottom: 16px !important;
+        gap: 10px !important;
+    }
+
+    .divider-icon {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 10px !important;
+    }
+
+    .divider-icon svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .divider-text {
+        font-size: 16px !important;
+    }
+
+    /* Bento Grid — single column */
+    .settings-bento-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .bento-item {
+        padding: 16px !important;
+        border-radius: 14px !important;
+    }
+
+    .bento-item:hover {
+        transform: none !important;
+    }
+
+    .bento-item.medium-width,
+    .bento-item.full-width {
+        grid-column: auto !important;
+    }
+
+    .bento-header {
+        font-size: 14px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .bento-description {
+        font-size: 12px !important;
+    }
+
+    .bento-inner-content {
+        margin-bottom: 8px !important;
+    }
+
+    /* Settings close button */
+    .settings-close {
+        display: none !important;
+    }
+
+    /* Color picker grid */
+    .color-grid-compact {
+        gap: 8px !important;
+    }
+
+    /* Action buttons */
+    .settings-final-actions {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-top: 20px !important;
+        padding-top: 20px !important;
+    }
+
+    .btn-xl {
+        padding: 14px 24px !important;
+        font-size: 15px !important;
+        width: 100% !important;
+        border-radius: 12px !important;
+    }
+
+    /* Settings grid & items */
+    .settings-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .setting-item {
+        padding: 14px !important;
+    }
+
+    .setting-item label {
+        font-size: 14px !important;
+    }
+
+    /* Profile card */
+    .profile-card-modern {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 16px !important;
+        border-radius: 14px !important;
+    }
+
+    .profile-card-modern img,
+    .profile-card-modern .avatar {
+        width: 64px !important;
+        height: 64px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   19. MODALS — Bottom sheet
+   ─────────────────────────────────────────── */
+    .modal-overlay,
+    .custom-confirm-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+
+    .modal-content,
+    .custom-confirm-modal {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 20px 20px 0 0 !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        padding: 20px 16px !important;
+        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    .modal-header {
+        margin-bottom: 16px !important;
+    }
+
+    .modal-footer {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .modal-footer button,
+    .modal-footer .btn {
+        width: 100% !important;
+        padding: 14px !important;
+    }
+
+    /* Pomodoro settings modal footer (inline styled div) */
+    div[style*="modal-footer"],
+    form .modal-footer,
+    div[style*="justify-content: flex-end"][style*="margin-top: 24px"] {
+        flex-direction: column-reverse !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+    }
+
+    div[style*="justify-content: flex-end"][style*="margin-top: 24px"]>div {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    div[style*="justify-content: flex-end"][style*="margin-top: 24px"] button {
+        width: 100% !important;
+        min-height: 44px !important;
+    }
+
+    .form-row {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .form-group {
+        width: 100% !important;
+    }
+
+    /* ───────────────────────────────────────────
+   20. LOGIN / REGISTER — Direct auth-card, no animation
+   ─────────────────────────────────────────── */
+    #login-overlay {
+        padding: 0 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        background: var(--bg-primary) !important;
+    }
+
+    #login-overlay::after {
+        display: none !important;
+    }
+
+    .scanline {
+        display: none !important;
+    }
+
+    /* HIDE clock and landing info — show auth-card directly */
+    .os-clock-large {
+        display: none !important;
+    }
+
+    .landing-wrapper {
+        flex-direction: column !important;
+        padding: 24px 16px !important;
+        gap: 0 !important;
+        min-height: 100vh !important;
+        justify-content: center !important;
+        align-items: center !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* HIDE all landing info — go straight to login form */
+    .landing-info {
+        display: none !important;
+    }
+
+    /* Disable ALL stagger animations on mobile login */
+    .landing-wrapper [class*="stagger"] {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Auth Card — clean mobile card */
+    .auth-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 28px 20px !important;
+        border-radius: 16px !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    .auth-card::before {
+        display: none !important;
+    }
+
+    /* Logo container — override all inline styles */
+    .auth-logo-container {
+        justify-content: center !important;
+        margin-bottom: 24px !important;
+        transform: none !important;
+        gap: 6px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .auth-logo-premium,
+    .auth-logo-container img {
+        height: 56px !important;
+        width: auto !important;
+        margin: 0 !important;
+        margin-right: 0 !important;
+        transform: none !important;
+        display: block !important;
+    }
+
+    .auth-logo-container .logo-text-modern,
+    .auth-logo-container span[class*="logo-text"] {
+        font-size: 26px !important;
+        transform: none !important;
+    }
+
+    .auth-title {
+        font-size: 20px !important;
+        text-align: center !important;
+        margin-bottom: 4px !important;
+    }
+
+    .auth-subtitle {
+        font-size: 13px !important;
+        text-align: center !important;
+        margin-bottom: 24px !important;
+    }
+
+    .auth-form .form-group {
+        margin-bottom: 14px !important;
+    }
+
+    .auth-form .form-input,
+    .auth-form input[type="text"],
+    .auth-form input[type="password"] {
+        height: 48px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+        padding: 0 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .auth-btn,
+    .auth-form button[type="submit"] {
+        height: 48px !important;
+        font-size: 15px !important;
+        border-radius: 12px !important;
+        margin-top: 4px !important;
+        width: 100% !important;
+    }
+
+    .auth-switch {
+        text-align: center !important;
+        margin-top: 16px !important;
+        font-size: 13px !important;
+    }
+
+    .auth-error {
+        border-radius: 10px !important;
+        padding: 10px !important;
+        font-size: 13px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .form-group-checkbox {
+        margin-bottom: 16px !important;
+    }
+
+    /* ───────────────────────────────────────────
+   21. POMODORO — compact settings modal
+   ─────────────────────────────────────────── */
+    .timer-display {
+        font-size: 56px !important;
+    }
+
+    .timer-controls {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+
+    /* Pomodoro Settings Form layout is handled via generic cross-device classes in style.css */
+
+    /* ───────────────────────────────────────────
+   22. YOUTUBE
+   ─────────────────────────────────────────── */
+    .yt-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ───────────────────────────────────────────
+   22b. TOOLBAR — Slim count + add button only
+   ─────────────────────────────────────────── */
+
+    /* The main toolbar container: only count + add button */
+    .lesson-filter-container-modern {
+        height: auto !important;
+        min-height: 50px !important;
+        padding: 10px 14px !important;
+        border-radius: 14px !important;
+        margin-bottom: 16px !important;
+        gap: 0 !important;
+        overflow: visible !important;
+    }
+
+    /* HIDE the entire filters wrapper (search + category triggers) */
+    .lesson-filters-wrapper,
+    .filter-row-single {
+        display: none !important;
+    }
+
+    /* Toolbar actions: equalized spacing */
+    .lesson-toolbar-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .toolbar-result-count {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+    }
+
+    .lesson-toolbar-actions .btn {
+        height: 38px !important;
+        padding: 0 14px !important;
+        font-size: 13px !important;
+        border-radius: 10px !important;
+    }
+
+    /* Module toolbar: same treatment */
+    .module-toolbar {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .module-toolbar .filter-search-input-modern {
+        display: none !important;
+    }
+
+    /* ───────────────────────────────────────────
+   22c. FLOATING SEARCH/FILTER FAB
+   ─────────────────────────────────────────── */
+
+    .yt-stat-value {
+        color: #ef4444 !important;
+    }
+
+    /* FAB button — bottom-right, above mobile nav */
+    .mobile-filter-fab {
+        display: none !important;
+        position: fixed !important;
+        bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+        right: 16px !important;
+        z-index: 999 !important;
+        width: 54px !important;
+        height: 54px !important;
+        border-radius: 50% !important;
+        background: var(--accent-purple, #7c3aed) !important;
+        color: #fff !important;
+        border: none !important;
+        box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.5), 0 6px 20px rgba(var(--accent-rgb), 0.3) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease !important;
+        animation: fabBounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+            fabPulse 2.5s ease-in-out 1s infinite !important;
+    }
+
+    /* Show FAB only when JS adds this class */
+    .mobile-filter-fab.fab-visible {
+        display: flex !important;
+    }
+
+    /* YouTube Mode */
+    .mobile-filter-fab.youtube-mode {
+        background: #ef4444 !important;
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), 0 6px 24px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    .mobile-filter-fab:active {
+        transform: scale(0.88) !important;
+        box-shadow: 0 3px 12px rgba(124, 58, 237, 0.35) !important;
+        animation: none !important;
+    }
+
+    .mobile-filter-fab svg {
+        width: 22px !important;
+        height: 22px !important;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) !important;
+    }
+
+    @keyframes fabBounceIn {
+        0% {
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+        }
+
+        60% {
+            transform: scale(1.15) rotate(0deg);
+            opacity: 1;
+        }
+
+        80% {
+            transform: scale(0.95);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fabPulse {
+
+        0%,
+        100% {
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        50% {
+            box-shadow: 0 6px 30px rgba(124, 58, 237, 0.65), 0 2px 12px rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    /* Backdrop when panel is open */
+    .mobile-filter-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .mobile-filter-backdrop.active {
+        display: block;
+    }
+
+    /* Slide-up panel */
+    .mobile-filter-panel {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1001;
+        background: var(--bg-primary, #0a0a1a);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px 20px 0 0;
+        padding: 20px 16px;
+        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        max-height: 75vh;
+        overflow-y: auto;
+        transform: translateY(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-filter-panel.active {
+        display: block;
+        transform: translateY(0);
+    }
+
+    /* Panel handle */
+    .mobile-filter-panel-handle {
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+        margin: 0 auto 16px auto;
+    }
+
+    /* Panel title row */
+    .mobile-filter-panel-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .mobile-filter-panel-title h3 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .mobile-filter-panel-close {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* Panel search input */
+    .mobile-filter-search {
+        width: 100%;
+        height: 46px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 0 14px 0 42px;
+        font-size: 15px;
+        color: var(--text-primary);
+        outline: none;
+        margin-bottom: 16px;
+        transition: all 0.2s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' x2='16.65' y1='21' y2='16.65'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 12px center;
+    }
+
+    .mobile-filter-search:focus {
+        border-color: var(--accent-purple, #7c3aed);
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .mobile-filter-search::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+
+    /* Panel filter group */
+    .mobile-filter-group {
+        margin-bottom: 14px;
+    }
+
+    .mobile-filter-group-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        padding-left: 2px;
+    }
+
+    .mobile-filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .mobile-filter-chips .site-category-chip {
+        padding: 8px 14px !important;
+        border-radius: 10px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+    }
+
+    /* ───────────────────────────────────────────
+   23. SCROLLBAR — Hidden on mobile
+   ─────────────────────────────────────────── */
+    .main-content::-webkit-scrollbar,
+    .pages-container::-webkit-scrollbar,
+    .settings-body::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .main-content,
+    .pages-container,
+    .settings-body {
+        scrollbar-width: none !important;
+    }
+
+    /* ───────────────────────────────────────────
+   24. HOVER EFFECTS — All disabled
+   ─────────────────────────────────────────── */
+    .dashboard-panel:hover,
+    .kanban-column:hover,
+    .task-list-item:hover,
+    .landing-stat-card:hover,
+    .quick-site-btn:hover,
+    .quick-action-btn:hover,
+    .module-card:hover,
+    .game-card-simple-v2:hover,
+    .bento-item:hover {
+        transform: none !important;
+    }
+
+    /* ───────────────────────────────────────────
+   25. MISC — Catch-all fixes
+   ─────────────────────────────────────────── */
+
+    /* All tables — horizontal scroll */
+    table {
+        display: block !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        width: 100% !important;
+    }
+
+    /* Wide elements contained */
+    pre,
+    code {
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        word-break: break-word !important;
+    }
+
+    /* Fix any absolute-positioned toolbar that overflows */
+    .toolbar,
+    .page-toolbar {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    /* Toast notifications — mobile position */
+    #toastContainer {
+        top: 64px !important;
+        right: 12px !important;
+        left: 12px !important;
+        width: auto !important;
+    }
+
+    #toastContainer .toast {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Notifications panel — full screen on mobile */
+    .notifications-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        right: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    /* ───────────────────────────────────────────
+   26. GENERAL MOBILE POLISH
+   ─────────────────────────────────────────── */
+
+    /* Modal — full-width on mobile */
+    .modal-content {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        max-height: 90vh !important;
+        border-radius: 16px !important;
+        margin: auto !important;
+    }
+
+    .modal-body {
+        padding: 16px !important;
+    }
+
+    .modal-header {
+        padding: 14px 16px !important;
+    }
+
+    /* Info modal bento grid — single column */
+    .lesson-info-modal-modern div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Card grids — force single column on mobile */
+    #gamesGrid,
+    #showsGrid,
+    #booksGrid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Show cards — compact padding */
+    .show-card {
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    .show-card h4 {
+        font-size: 15px !important;
+        padding-right: 40px !important;
+    }
+
+    /* Game cards */
+    .game-card-simple-v2 {
+        padding: 14px !important;
+        border-radius: 14px !important;
+    }
+
+    .game-title-v2 {
+        font-size: 14px !important;
+    }
+
+    /* Book cards — compact */
+    .book-card {
+        padding: 16px !important;
+    }
+
+    /* Form rows — stack on mobile */
+    .form-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Touch-friendly form inputs */
+    .form-input,
+    .form-select,
+    .form-textarea {
+        min-height: 44px !important;
+        font-size: 16px !important;
+        /* Prevents iOS zoom */
+    }
+
+    /* Modal footer — stack buttons */
+    .modal-footer-modern {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .modal-footer-modern .btn {
+        min-height: 44px !important;
+        font-size: 14px !important;
+    }
+
+    /* Empty states — smaller */
+    .empty-state-large {
+        padding: 32px 20px !important;
+    }
+
+    .empty-state-large svg {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .empty-state-large h3 {
+        font-size: 16px !important;
+    }
+
+    .empty-state-large p {
+        font-size: 13px !important;
+    }
+
+    /* Stats cards in pages — compact */
+    .stats-card-modern {
+        padding: 14px !important;
+        border-radius: 14px !important;
+    }
+
+    .stats-card-value {
+        font-size: 22px !important;
+    }
+
+    .stats-card-label {
+        font-size: 11px !important;
+    }
+
+    /* Info header bento — responsive */
+    .info-header-bento {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: flex-start !important;
+    }
+
+    .info-header-bento .info-icon-box {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .info-lesson-name {
+        font-size: 22px !important;
+    }
+
+    /* Auth card — full-width on mobile */
+    .auth-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Landing wrapper — centered */
+    .landing-wrapper {
+        padding: 16px !important;
+    }
+
+    /* Login overlay — hide decorative elements */
+    #login-overlay .landing-info {
+        display: none !important;
+    }
+
+    #login-overlay .os-clock-large {
+        display: none !important;
+    }
+
+    #login-overlay .os-system-identity {
+        display: none !important;
+    }
+
+    /* Canvas (matrix bg) hidden on mobile login */
+    #login-overlay #matrixCanvas {
+        opacity: 0.3 !important;
+    }
+
+    /* Scanline hidden on mobile */
+    .scanline {
+        display: none !important;
+    }
+
+    /* Stagger animations — all disabled */
+    .stagger-1,
+    .stagger-2,
+    .stagger-3,
+    .stagger-4,
+    .stagger-5 {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Hide Entry Animations toggle on mobile — not relevant since mobile bypasses login animations */
+    #entryAnimationsToggle {
+        display: none !important;
+    }
+
+    /* Also hide the parent bento-item wrapping it */
+    .bento-item:has(#entryAnimationsToggle) {
+        display: none !important;
+    }
+
+}
+
+/* END @media max-width: 991px */
+
+
+/* ═══════════════════════════════════════════
+   EXTRA NARROW SCREENS (< 380px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 380px) {
+
+    .banner-stats-row,
+    .banner-stats-grid-modern {
+        grid-template-columns: 1fr !important;
+    }
+
+    .quick-sites-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #gamesGrid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .mobile-nav-item span {
+        font-size: 9px !important;
+    }
+
+    .mobile-nav-item svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .header-left .page-title {
+        max-width: 140px !important;
+        font-size: 15px !important;
+    }
+
+    /* 23. MODALS & LESSON NOTES
+    ─────────────────────────────────────────── */
+    .modal,
+    .modal-wide {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+    }
+
+    .modal-header {
+        padding: 16px 20px !important;
+    }
+
+    .modal-body {
+        padding: 16px 20px 120px 20px !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Stack form rows on mobile */
+    .form-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+    }
+
+    .form-group {
+        width: 100% !important;
+        margin-bottom: 16px !important;
+    }
+
+    .form-label {
+        font-size: 13px !important;
+        margin-bottom: 6px !important;
+        opacity: 0.8;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 14px 16px !important;
+        font-size: 14px !important;
+        height: auto !important;
+        border-radius: 14px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1.5px solid var(--border-color) !important;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border-color: var(--accent-purple) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .modal-footer-modern {
+        margin-top: 10px !important;
+        padding: 0 0 20px 0 !important;
+        gap: 10px !important;
+    }
+
+    .modal-footer-modern .btn {
+        height: 44px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+    }
+
+    .modal-footer {
+        padding: 12px 20px !important;
+    }
+
+    /* Lesson Notes Modal */
+    .notes-modal-premium {
+        padding: 0 !important;
+    }
+
+    .notes-workspace-header {
+        background: rgba(var(--accent-rgb), 0.05) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        padding: 10px 14px !important;
+        margin-bottom: 12px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(var(--accent-rgb), 0.1) !important;
+    }
+
+    .workspace-info {
+        gap: 8px !important;
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .workspace-icon {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 8px !important;
+    }
+
+    .workspace-text h3 {
+        font-size: 13px !important;
+        font-weight: 800 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .workspace-actions {
+        width: auto !important;
+    }
+
+    .workspace-actions .btn {
+        width: auto !important;
+        padding: 6px 12px !important;
+        font-size: 11px !important;
+        border-radius: 8px !important;
+        white-space: nowrap !important;
+    }
+
+    .note-file-card {
+        padding: 10px !important;
+        gap: 8px !important;
+        border-radius: 12px !important;
+        width: 100% !important;
+        max-width: 342.96px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .note-file-card .file-icon-wrap {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 8px !important;
+        font-size: 16px !important;
+    }
+
+    .note-file-card .file-info {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .note-file-card .file-name {
+        font-size: 13px !important;
+        display: block !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .note-file-card .file-meta {
+        font-size: 10px !important;
+    }
+
+    .file-actions {
+        gap: 4px !important;
+    }
+
+    .file-btn {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 8px !important;
+    }
+
+    /* Pomodoro Wrapper Mobile Fix */
+    .pomodoro-wrapper {
+        padding: 0 !important;
+        height: 100% !important;
+    }
+
+    .pomodoro-container {
+        gap: 0 !important;
+        height: 100% !important;
+    }
+
+    .pomodoro-timer-card {
+        padding: 20px !important;
+        border-radius: 0 !important;
+        height: 100% !important;
+        background: transparent !important;
+    }
+
+    .pomodoro-timer {
+        font-size: 84px !important;
+        /* Made a bit larger since it's full screen */
+        margin-bottom: 10px !important;
+    }
+
+    .pomodoro-status {
+        font-size: 14px !important;
+        letter-spacing: 1.5px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .pomodoro-controls {
+        gap: 10px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .pomodoro-btn {
+        padding: 10px 18px !important;
+        font-size: 13px !important;
+    }
+
+    .pomo-mode-cards {
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto 30px auto !important;
+    }
+
+    .pomo-mode-card {
+        width: 100% !important;
+        height: 54px !important;
+    }
+
+    .pomo-settings-btn {
+        top: 10px !important;
+        right: 10px !important;
+    }
+
+    .pomodoro-stats-card {
+        padding: 20px !important;
+    }
+
+    .stats-items {
+        gap: 12px !important;
+    }
+
+    .stat-box {
+        padding: 12px !important;
+    }
+
+    .stat-value {
+        font-size: 18px !important;
+    }
+
+    .pomodoro-stats-integrated {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Pomodoro Settings Footer Fix */
+    #pomodoroSettingsForm .modal-footer {
+        margin-top: 15px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    #pomodoroSettingsForm .modal-footer .btn {
+        flex: 1 !important;
+        min-width: 100px !important;
+    }
+
+    .pomo-settings-panel {
+        padding: 40px 12px 12px 12px !important;
+        gap: 6px !important;
+        overflow-y: hidden !important;
+        height: auto !important;
+    }
+
+    .pomo-settings-panel .settings-title {
+        font-size: 16px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .pomo-settings-panel .settings-footer {
+        display: flex !important;
+        margin-top: 10px !important;
+        width: 100% !important;
+        flex-direction: row !important;
+        gap: 12px !important;
+    }
+
+    .pomo-settings-panel .settings-footer button {
+        flex: 1 !important;
+        height: 44px !important;
+        border-radius: 16px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+
+    .header {
+        padding-top: env(safe-area-inset-top, 0px) !important;
+        height: auto !important;
+        min-height: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    }
+
+    .main-content {
+        margin-top: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    }
+
+    .mobile-nav {
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        height: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   PWA STANDALONE MODE
+   ═══════════════════════════════════════════ */
+@media all and (display-mode: standalone) {
+    /* Standalone specific optimizations if any, safe areas already handled above */
+}
+
+/* Mobile Clean-up: Removing thin separation lines */
+@media (max-width: 991px) {
+
+    .planning-header-toolbar #planningNav,
+    .planning-header-toolbar .view-selector,
+    .kanban-column-header,
+    .modal-footer,
+    .modal-header,
+    .notifications-header {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .view-selector {
+        background: var(--bg-secondary) !important;
+    }
+
+    #planningNav {
+        padding: 0 !important;
+        background: transparent !important;
+    }
+
+    .modal-footer-modern {
+        border-top: none !important;
+    }
+}

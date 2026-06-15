@@ -1,0 +1,53 @@
+/* YouTube specific filter region overrides */
+#page-youtube .filter-drop-inline {
+    /* Ensure the container itself doesn't have conflicting styles if any */
+}
+
+/* Override the chips within the filter-drop-inline specifically for YouTube page */
+#page-youtube .filter-drop-inline .site-category-chip,
+#page-youtube .site-category-chip.yt-category-chip {
+    background: rgba(239, 68, 68, 0.1) !important;
+    /* Red background tint */
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
+    /* Red border */
+    color: var(--text-secondary);
+    /* Keep text neutral by default */
+}
+
+#page-youtube .filter-drop-inline .site-category-chip:hover,
+#page-youtube .site-category-chip.yt-category-chip:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    color: #ef4444 !important;
+    /* Red text on hover */
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+#page-youtube .filter-drop-inline .site-category-chip.active,
+#page-youtube .site-category-chip.yt-category-chip.active {
+    background: #ef4444 !important;
+    /* Solid red */
+    border-color: #ef4444 !important;
+    color: #ffffff !important;
+    /* White text */
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Override the trigger icon and label wrapper if needed to ensure no purple leaks */
+#page-youtube .filter-trigger {
+    border-color: rgba(239, 68, 68, 0.2);
+    color: var(--text-secondary);
+}
+
+#page-youtube .filter-trigger:hover,
+#page-youtube .filter-trigger:focus-within {
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.05);
+    color: #ef4444;
+}
+
+#page-youtube .filter-trigger .chip-icon,
+#page-youtube .site-category-chip .chip-icon {
+    color: inherit;
+    /* Icons take the text color */
+}

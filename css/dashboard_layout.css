@@ -1,0 +1,676 @@
+/* ==========================================
+   DASHBOARD LAYOUT SYNC - Theme Integrated
+   Matches "Linear/Vercel" aesthetic within Maxton Design System
+   ========================================== */
+
+/* Page Background - Aligned with App Theme */
+#page-dashboard {
+    background: var(--bg-secondary) !important;
+    /* Sol menü (Sidebar) ile aynı */
+    background-image: none !important;
+    /* Arkaplan gradyanları kaldırıldı */
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 0 !important;
+    overflow-y: auto;
+}
+
+/* Main layout wrapper */
+.dashboard-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+        "banner banner"
+        "sites actions"
+        "tasks habits"
+        "tasks upcoming";
+    gap: 20px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+}
+
+/* 
+   Direct Child Placement via Grid Areas
+*/
+
+.dashboard-banner-container {
+    grid-area: banner;
+}
+
+.panel-sites {
+    grid-area: sites;
+}
+
+.panel-actions {
+    grid-area: actions;
+}
+
+.panel-tasks {
+    grid-area: tasks;
+    min-height: 540px;
+}
+
+.panel-habits {
+    grid-area: habits;
+}
+
+.panel-upcoming {
+    grid-area: upcoming;
+}
+
+/* Panel Containers - App Theme Integration */
+.dashboard-panel {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card);
+    transition: all var(--transition-normal);
+    /* Tema hızıyla senkronize */
+}
+
+.dashboard-panel:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168, 85, 247, 0.4) !important;
+    /* Tema moru */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(168, 85, 247, 0.1);
+    text-decoration: none !important;
+}
+
+.dashboard-panel *:hover {
+    text-decoration: none !important;
+}
+
+/* Header Styling */
+.panel-header {
+    height: 52px;
+    padding: 0 16px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent !important;
+    /* Arkaplan kaldırıldı */
+}
+
+.panel-header h3 {
+    font-size: 18px !important;
+    /* Font daha da büyütüldü */
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 !important;
+}
+
+.panel-header h3 svg {
+    width: 16px;
+    height: 16px;
+    color: var(--accent-purple);
+}
+
+/* Dropdown/Action Buttons */
+.task-dropdown-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--border-radius-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.task-dropdown-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* BANNER STYLING - Settings & Profile Sync */
+.dashboard-banner {
+    background-image: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+    border-radius: var(--border-radius);
+    display: flex;
+    color: white;
+    min-height: 160px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: none !important;
+    /* Kenar çizgisi kaldırıldı */
+}
+
+.dashboard-profile-info {
+    width: auto;
+    min-width: 280px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 24px 32px;
+    margin: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+    border: none;
+    border-radius: 20px;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.status-ring {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background: #10b981;
+    /* Online green */
+    border: 3px solid #6366f1;
+    /* Matches banner indigo/purple */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.dashboard-avatar {
+    width: 64px !important;
+    height: 64px !important;
+    border: none !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px !important;
+    font-weight: 900;
+    color: white;
+    box-shadow: none !important;
+}
+
+.profile-details-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dashboard-profile-info h3 {
+    font-size: 1.4rem !important;
+    font-weight: 800;
+    margin: 0 !important;
+    color: white !important;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.profile-badges {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rank-badge {
+    font-size: 9px;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-profile-info p {
+    font-size: 0.85rem !important;
+    font-weight: 600;
+    opacity: 0.7;
+    margin: 0 !important;
+}
+
+.banner-welcome-text {
+    flex: 1;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: row;
+    /* Yatay hizada yayılım için */
+    align-items: center;
+    justify-content: space-between;
+    /* İstatistikleri sağa itmek için */
+    gap: 32px;
+}
+
+.banner-header h2 {
+    font-size: 1.4rem !important;
+    /* Ayarlar ile aynı */
+    font-weight: 800;
+    margin-bottom: 4px;
+    color: white !important;
+}
+
+.banner-header p {
+    font-size: 0.8rem !important;
+    /* Ayarlar ile aynı */
+    opacity: 0.85;
+    color: white !important;
+}
+
+.banner-date {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    opacity: 0.65 !important;
+    color: white !important;
+    margin-top: 8px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+.banner-stats-row {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+    /* En sağa yaslar */
+}
+
+.banner-stat-item {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    /* Hafif daraltıldı */
+    border-radius: var(--border-radius-sm);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.7;
+    white-space: nowrap;
+    /* Tek satıra zorla */
+}
+
+.stat-lbl {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stat-top svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.stat-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.stat-val {
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.stat-trend {
+    display: none !important;
+    /* Değişim sayıları kaldırıldı */
+}
+
+/* QUICK ACTIONS GRID - App Theme Sync */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 16px;
+}
+
+.quick-action-btn {
+    background: #11121d !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-sm);
+    height: 48px;
+    padding: 0 16px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.quick-action-btn:hover {
+    background: #191a27 !important;
+    /* Bir tık daha açık hover rengi */
+    border-color: #5b3e96 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.qa-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-purple);
+    width: 24px;
+    /* Sabit genişlik hizalamayı sağlar */
+    flex-shrink: 0;
+}
+
+.qa-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.quick-action-btn span {
+    font-size: 13px;
+    font-weight: 600;
+    /* Daha okunaklı */
+    color: var(--text-primary);
+    white-space: nowrap;
+    /* Kesinlikle yan yana */
+}
+
+/* Sık Kullanılanlar - Daha Düzenli Grid Kapasitesi */
+.quick-sites-grid {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 24px;
+    justify-content: center !important;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    flex: 1;
+}
+
+/* Yüksekliği doldurarak dikeyde de merkeze almasını sağlar */
+
+.quick-site-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    gap: 6px;
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    min-height: 90px;
+    flex-shrink: 0;
+    padding: 8px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid transparent;
+    /* Varsayılan olarak şeffaf kenarlık */
+}
+
+.quick-site-btn:hover {
+    background: #191a27 !important;
+    border-color: #5b3e96 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quick-site-icon {
+    width: 52px;
+    height: 52px;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    box-shadow: none !important;
+}
+
+
+.quick-site-icon img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.quick-site-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-primary);
+    opacity: 0.9;
+    text-align: center;
+    width: 100%;
+    max-width: 110px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0 !important;
+}
+
+/* TODAY'S TASKS - Theme Sync */
+.task-item-dashboard {
+    height: 52px;
+    background: #11121d !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-xs);
+    margin: 8px 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    transition: all var(--transition-fast);
+}
+
+.task-item-dashboard:hover {
+    background: #191a27 !important;
+    border-color: #5b3e96 !important;
+}
+
+.task-checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+}
+
+.task-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.task-badge {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--bg-tertiary);
+    /* Varsayılan */
+}
+
+.task-badge.high {
+    background: rgba(239, 68, 68, 0.15);
+    /* Kırmızımsı */
+    color: #ef4444;
+}
+
+.task-badge.medium {
+    background: rgba(245, 158, 11, 0.15);
+    /* Turuncumsu */
+    color: #f59e0b;
+}
+
+.task-badge.low {
+    background: rgba(16, 185, 129, 0.15);
+    /* Yeşilimsi */
+    color: #10b981;
+}
+
+/* HABIT CHAIN - Theme Sync */
+.habit-dashboard-item {
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: #11121d !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-sm);
+    margin: 12px 16px;
+    transition: all var(--transition-fast);
+}
+
+.habit-dashboard-item:hover {
+    background: #191a27 !important;
+    border-color: #5b3e96 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.habit-icon-mini {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: #11121d !important;
+    border: 1px solid var(--border-color) !important;
+    flex-shrink: 0;
+}
+
+.habit-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.habit-stats {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+
+.dashboard-habit-mini-grid {
+    display: flex;
+    /* Grid yerine Flex, daha esnek */
+    gap: 6px;
+    margin-left: auto;
+    /* En sağa yaslandı */
+}
+
+.habit-day-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 10px;
+    font-size: 14px !important;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #11121d !important;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color) !important;
+    cursor: pointer;
+    /* Tıklama tuşu/pointer eklendi */
+    transition: all var(--transition-fast);
+}
+
+.habit-day-box:hover {
+    /* Hover efekti sadeleştirildi */
+    border-color: #5b3e96 !important;
+    z-index: 10;
+}
+
+.habit-day-box.completed {
+    background: var(--day-color) !important;
+    border-color: transparent;
+    color: white;
+}
+
+/* UPCOMING EVENTS - Theme Sync */
+.upcoming-items {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.upcoming-item-box {
+    flex: 1;
+    background: #11121d !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-sm);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+    box-shadow: var(--shadow-card);
+    transition: all var(--transition-fast);
+}
+
+.upcoming-item-box:hover {
+    background: #191a27 !important;
+    border-color: #5b3e96 !important;
+    transform: translateY(-4px);
+}
+
+.upcoming-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.upcoming-countdown-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* EMPTY STATES */
+.empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .dashboard-main-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: "banner" "sites" "actions" "tasks" "habits" "upcoming";
+    }
+}

@@ -1,0 +1,8 @@
+.settings-main-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--accent-color, var(--text-primary));
+    /* Fallback color if variable is missing */
+    transition: color 0.3s ease;
+}

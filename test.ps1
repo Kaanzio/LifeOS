@@ -1,0 +1,1 @@
+Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile('c:\Users\kaane\.gemini\antigravity\scratch\lifeos_mobile\assets\icons\icon-192.png'); $bmp = new-object System.Drawing.Bitmap($img); Write-Host "Width: $($bmp.Width), Height: $($bmp.Height)"

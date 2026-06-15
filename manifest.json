@@ -1,0 +1,42 @@
+{
+    "name": "LifeOS - Kişisel İşletim Sistemi",
+    "short_name": "LifeOS",
+    "description": "Hayatınızı yönetin: Dersler, Planlama, Pomodoro ve fazlası.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#0a0a0f",
+    "orientation": "portrait-primary",
+    "categories": ["productivity", "education", "utilities"],
+    "icons": [
+        {
+            "src": "assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Bugünkü Görevler",
+            "short_name": "Görevler",
+            "description": "Bugünün görevlerini görüntüle ve yönet",
+            "url": "./index.html?page=planning",
+            "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Yeni Not",
+            "short_name": "Not Ekle",
+            "description": "Hızlıca yeni bir not oluştur",
+            "url": "./index.html?page=notes&action=new",
+            "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+        }
+    ],
+    "prefer_related_applications": false
+}
