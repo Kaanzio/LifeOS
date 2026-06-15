@@ -155,17 +155,26 @@ const P2PSync = {
 
     setupHostConnection() {
         this.conn.on('open', () => {
-            // Ask user for approval
-            const accept = confirm("Bir cihaz verilerinizi senkronize etmek için bağlanmak istiyor. İki cihazdaki veriler birleştirilecektir. Kabul ediyor musunuz?");
-            
-            if (accept) {
-                document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler gönderiliyor...';
-                
-                // Send ACCEPT and full local state
-                this.exportAndSend();
+            // Ask user for approval via App Modal
+            document.getElementById('modalTitle').textContent = 'Senkronizasyon Onayı';
+            document.getElementById('modalBody').innerHTML = `
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="width: 64px; height: 64px; background: rgba(124, 58, 237, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <p style="font-size: 15px; line-height: 1.5; color: var(--text-secondary); margin-bottom: 24px;">Bir cihaz verilerinizi senkronize etmek için bağlanmak istiyor. İki cihazdaki veriler birleştirilecektir.</p>
+                    <div style="display: flex; gap: 12px; justify-content: center;">
+                        <button class="btn btn-secondary" onclick="P2PSync.handleApproval(false)" style="flex: 1;">Reddet</button>
+                        <button class="btn btn-primary" onclick="P2PSync.handleApproval(true)" style="flex: 1; background: #7c3aed; border-color: #7c3aed;">Kabul Et</button>
+                    </div>
+                </div>
+            `;
+            if (typeof App !== 'undefined' && App.openModal) {
+                App.openModal();
             } else {
-                this.conn.send({ type: 'REJECT' });
-                this.cancel();
+                // Fallback
+                const accept = confirm("Bir cihaz verilerinizi senkronize etmek için bağlanmak istiyor. İki cihazdaki veriler birleştirilecektir. Kabul ediyor musunuz?");
+                this.handleApproval(accept);
             }
         });
         
@@ -190,6 +199,18 @@ const P2PSync = {
                 this.cancel();
             }
         });
+    },
+
+    handleApproval(accept) {
+        if (typeof App !== 'undefined' && App.closeModal) App.closeModal();
+        if (accept) {
+            document.getElementById('hostSyncStatus').innerHTML = '<div class="spinner" style="width: 16px; height: 16px; border: 2px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;"></div> Veriler gönderiliyor...';
+            // Send ACCEPT and full local state
+            this.exportAndSend();
+        } else {
+            this.conn.send({ type: 'REJECT' });
+            this.cancel();
+        }
     },
 
     async exportAndSend() {
